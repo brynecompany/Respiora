@@ -143,6 +143,7 @@
     .form-box button:hover{
         background: #0e2455;
     }
+
     /* OVERLAY BACKGROUND */
     .overlay{
         position:fixed;
@@ -150,11 +151,11 @@
         left:0;
         width:100%;
         height:100%;
-        background:rgba(0,0,0,0.4); /* efek abu transparan */
+        background:rgba(0,0,0,0.4);
         display:flex;
-        justify-content:flex-end;   /* 👉 ke kanan */
-        align-items:flex-start;     /* 👉 ke atas */
-        padding-right:20px;               /* jarak dari pinggir */
+        justify-content:flex-end;
+        align-items:flex-start;
+        padding-right:20px;
         padding-top:10px;
         z-index:999;
         opacity:0;
@@ -173,7 +174,7 @@
         background:white;
         padding:20px 30px;
         border-radius:20px;
-        align-items:center;       /* horizontal tengah */
+        align-items:center;
         text-align:center;
         display:flex;
         margin-right: 20px;
@@ -196,8 +197,8 @@
 
     /* TEXT */
     .popup .text{
-    font-size:14px;
-    color:#333;
+        font-size:14px;
+        color:#333;
     }
     </style>
 
@@ -215,10 +216,10 @@
     function showSuccess(){
         const overlay = document.getElementById('successOverlay');
         overlay.classList.add('active');
-        // redirect setelah 2.5 detik
+
         setTimeout(function(){
             window.location.href = "<?= base_url('login') ?>";
-        }, 10000);
+        }, 15000);
     }
     </script>
 

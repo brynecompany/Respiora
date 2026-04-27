@@ -1,4 +1,4 @@
-<?= $this->extend('layout/template') ?>
+<?= $this->extend('layout/main_layout') ?>
 
 <?= $this->section('style') ?>
 <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>

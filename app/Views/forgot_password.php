@@ -25,9 +25,9 @@
         padding:60px;
         display:flex;
         flex-direction:column;
-        justify-content:center;   /* vertikal tengah */
-        align-items:center;       /* horizontal tengah */
-        text-align:center;        /* semua text jadi center */
+        justify-content:center;
+        align-items:center;
+        text-align:center;
     }
 
     .left-panel{
@@ -126,28 +126,31 @@
     }
 
     .right-panel h2{
-        margin-bottom:10px;  /* kecilkan jarak */
+        margin-bottom:10px;
         font-size:28px;
         color: #081F5C;
     }
 
     .right-panel p{
         margin-top:0;
-        margin-bottom:30px;  /* jarak ke form */
+        margin-bottom:30px;
         font-size:15px;
-        max-width:420px;     /* biar tidak terlalu panjang */
+        max-width:420px;
         color: #023D40;
     }
+
     .left-panel img{
         width:400px;
         display:flex;
         padding-top: 50px;
-        position:relative;  /* WAJIB supaya title bisa absolute */
+        position:relative;
     }
+
     .left-panel h1{
         margin-top: 100px;
-        position:relative;  /* WAJIB supaya title bisa absolute */
+        position:relative;
     }
+
     /* OVERLAY */
     .overlay{
         position:fixed;
@@ -155,12 +158,12 @@
         left:0;
         width:100%;
         height:100%;
-        background:rgba(0,0,0,0.4); /* efek abu transparan */
+        background:rgba(0,0,0,0.4);
         display:flex;
-        justify-content:flex-end;   /* 👉 ke kanan */
-        align-items:flex-start;     /* 👉 ke atas */
-        padding-right:20px;               /* jarak dari pinggir */
-        padding-top:60px;
+        justify-content:flex-end;
+        align-items:flex-start;
+        padding-right:30px;
+        padding-top:20px;
         z-index:999;
         opacity:0;
         visibility:hidden;
@@ -177,16 +180,20 @@
         background:white;
         padding:20px 30px;
         border-radius:20px;
-        align-items:center;       /* horizontal tengah */
+        align-items:center;
         text-align:center;
         display:flex;
-        margin-right: 5px;
+        margin-right: 20px;
         gap:15px;
         box-shadow:0 10px 25px rgba(0,0,0,0.2);
+
+        transform: translateX(100px);
+        opacity:0;
+        transition:0.3s;
     }
 
     .overlay.active .popup{
-        transform:translateX(0);
+        transform: translateX(0);
         opacity:1;
     }
 
@@ -217,12 +224,20 @@ function showNotif(){
     const overlay = document.getElementById('notifOverlay');
     overlay.classList.add('active');
 
-    // hilang setelah 5 detik
     setTimeout(()=>{
         overlay.classList.remove('active');
-    }, 10000);
+    }, 15000);
 }
 </script>
+
+<div id="notifOverlay" class="overlay">
+    <div class="popup">
+        <div class="icon">✔</div>
+        <div class="text">
+            <b>Link untuk ubah Kata Sandi berhasil dikirim! Silahkan cek Email Anda</b>
+        </div>
+    </div>
+</div>
 
 <body>
 <div class="container">
@@ -250,7 +265,8 @@ function showNotif(){
         <?php if(session()->getFlashdata('success')): ?>
         <script>
         window.onload = function(){
-            showNotif();}
+            showNotif();
+        }
         </script>
         <?php endif; ?>
 

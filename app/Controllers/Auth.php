@@ -44,7 +44,7 @@ class Auth extends BaseController
         'logged_in' => true
     ]);
 
-    return redirect()->to('/sidebar_layl');
+    return redirect()->to('/dashboard');
     }
 
     public function logout()

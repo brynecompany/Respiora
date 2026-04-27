@@ -1,150 +1,152 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Profil</title>
+<?= $this->extend('layout/main_layout') ?>
 
-    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+<?= $this->section('style') ?>
+<style>
 
-    <style>
-    body{
-        margin:0;
-        font-family:'Nunito Sans', sans-serif;
-        height:100vh;
-        background: url('<?= base_url('assets/images/bg-respiora.png') ?>') no-repeat center center;
-        background-size: cover;
-        display:flex;
-    }
+/* HEADER */
+.header-profil { 
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    background: linear-gradient(90deg, #081F5C, #5E9ADF);
+    color: white;
+    padding: 15px 20px;
+    border-radius: 10px;
+}
 
-    /* Container utama */
-    .container{
-        width:100%;
-        display:flex;
-    }
+.header-icon img {
+    width: 40px;
+    height: 40px;
+}
 
-    /* PANEL KIRI (ROBOT) */
-    .left-panel{
-        width:50%;
-        display:flex;
-        justify-content:center;
-        align-items:center;
-        position:relative;
-    }
+/* CARD */
+.profile-card {
+    background: white;
+    border-radius: 10px;
+    padding: 30px;
+    margin-top: 20px;
+    width: 100%;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
 
-    .left-panel img{
-        /*width:350px;
-        margin-left: -70px;*/
-        width:450px;
-        display:flex;
-        justify-content:center;
-        text-align: center;
-        position:relative;  /* WAJIB supaya title bisa absolute */
-    }
+.profile-content {
+    max-width: 400px;
+    margin: 0 auto;
+    text-align: center;
+}
 
-    /* PANEL KANAN (PUTIH) */
-    .right-panel{
-        width: 50%;
-        background:white;
-        border-radius: 50px;
-        margin-right: -50px;
-        padding:60px;
-        display:flex;
-        flex-direction:column;
-        justify-content:center;
-        box-shadow: -15px 0 20px rgba(0,0,0,0.1);
-    }
+.avatar {
+    width: 100px;
+    border-radius: 50%;
+    margin-bottom: 10px;
+}
 
-    /* Logo */
-    .logo{
-        text-align:center;
-        margin-bottom:10px;
-        margin-top:-70px;
-    }
+.form-box {
+    text-align: left;
+    margin-top: 20px;
+}
 
-    .logo img{
-        width:350px;
-    }
+.form-control {
+    margin-bottom: 15px;
+    border-radius: 8px;
+}
 
-    /* Judul */
-    .title{
-        text-align:center;
-        font-size:28px;
-        font-weight:700;
-        margin-bottom:30px;
-        color:#081F5C;
-    }
+/* BUTTON UTAMA */
+.btn-main {
+    background: #081F5C;
+    color: white;
+    border-radius: 8px;
+    border: none;
+    transition: 0.2s;
+}
 
-    /* Box profil */
-    .form-box{
-        width: 500px;
-        border:1px solid #ccc;
-        border-radius:20px;
-        padding:40px;
-        margin:0 auto;
-    }
+/* HOVER */
+.btn-main:hover {
+    background: #081F5C;
+    color: white;
+}
 
-    /* Isi profil */
-    .profile-item{
-        margin-bottom:20px;
-        font-size:16px;
-    }
+/* KLIK */
+.btn-main:active {
+    background: #081F5C !important;
+    color: white !important;
+}
 
-    .profile-item span{
-        font-weight:bold;
-        color:#334EAC;
-    }
+/* FOCUS (BIAR GA PUTIH) */
+.btn-main:focus {
+    background: #081F5C !important;
+    color: white !important;
+    box-shadow: none !important;
+}
 
-    /* Button */
-    .btn{
-        width:100%;
-        padding:14px;
-        background:#334EAC;
-        color:white;
-        border:none;
-        border-radius:12px;
-        font-weight:600;
-        margin-top:20px;
-        text-decoration:none;
-        display:inline-block;
-        text-align:center;
-    }
-    </style>
+/* placeholder titik hitam */
+.form-control::placeholder {
+    color: black;
+    opacity: 1;
+}
 
-</head>
-<body>
+</style>
+<?= $this->endSection() ?>
 
-<div class="container">
+<?= $this->section('content') ?>
 
-    <!-- PANEL KIRI -->
-    <div class="left-panel">
-        <img src="<?= base_url('assets/images/pic_login.png') ?>" alt="Robot">
+<!-- HEADER -->
+<div class="header-profil">
+    <div class="header-icon">
+        <img src="/assets/img/icon_breadcrumb.svg">
     </div>
+    <div>
+        <h5>Profil</h5>
+        <small>Menampilkan Profil Anda</small>
+    </div>
+</div>
 
-    <!-- PANEL KANAN -->
-    <div class="right-panel">
+<!-- CARD -->
+<div class="profile-card">
+    <div class="profile-content">
 
-        <div class="logo">
-            <img src="<?= base_url('assets/images/logo_respiora.png') ?>" alt="Logo">
-        </div>
+        <img src="https://i.pravatar.cc/100" class="avatar">
 
-        <div class="title">Halaman Profil</div>
+        <h6><?= session()->get('username'); ?></h6>
+
+        <!-- NOTIF -->
+        <?php if(session()->getFlashdata('success')): ?>
+            <div style="color: green; margin-bottom:10px;">
+                <?= session()->getFlashdata('success') ?>
+            </div>
+        <?php endif; ?>
+
+        <?php if(session()->getFlashdata('error')): ?>
+            <div style="color: red; margin-bottom:10px;">
+                <?= session()->getFlashdata('error') ?>
+            </div>
+        <?php endif; ?>
 
         <div class="form-box">
 
-            <div class="profile-item">
-                Username: <span><?= session()->get('username'); ?></span>
-            </div>
+            <form action="<?= base_url('profil/update-pass') ?>" method="post">
 
-            <div class="profile-item">
-                Role: <span><?= session()->get('role'); ?></span>
-            </div>
+                <!-- USERNAME -->
+                <label>Username</label>
+                <input type="text" name="username"
+                       class="form-control"
+                       value="<?= session()->get('username'); ?>" readonly>
 
-            <a href="<?= base_url('sidebar_layl') ?>" class="btn">← Kembali</a>
+                <!-- PASSWORD -->
+                <label>Kata Sandi</label>
+                <input type="password" name="password"
+                       class="form-control"
+                       placeholder="••••••••">
+
+                <button class="btn btn-main w-100 mt-2">
+                    Ubah Kata Sandi
+                </button>
+
+            </form>
 
         </div>
 
     </div>
-
 </div>
 
-</body>
-</html>
+<?= $this->endSection() ?>
