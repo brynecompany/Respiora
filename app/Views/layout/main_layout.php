@@ -1,9 +1,7 @@
 <!DOCTYPE html>
-<html lang="id">
+<html>
 <head>
     <title>Dashboard</title>
-    <?= $this->renderSection('style') ?>
-
     <style>
         body {
             margin: 0;
@@ -11,7 +9,6 @@
             background: #f4f6f9;
         }
 
-        /* SIDEBAR */
         .sidebar {
             width: 220px;
             height: 100vh;
@@ -26,26 +23,17 @@
             color: white;
             margin: 10px 0;
             text-decoration: none;
-            padding: 8px;
-            border-radius: 6px;
         }
 
-        .sidebar a:hover {
-            background: #1d3b6b;
-        }
-
-        /* NAVBAR */
-        .navbar {
-            margin-left: 220px;
-            background: white;
-            padding: 15px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-
-        /* CONTENT */
         .main {
             margin-left: 240px;
             padding: 20px;
+        }
+
+        .card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
         }
     </style>
 </head>
@@ -62,11 +50,11 @@
 </div>
 
 <div class="main">
-    <!-- Render Content Section -->
+    <!-- Tempat konten dari index.php akan tampil -->
     <?= $this->renderSection('content') ?>
 </div>
 
-<!-- Render Scripts (for JS, Chart.js, etc.) -->
+<!-- Tempat script (seperti Chart.js) akan muncul -->
 <?= $this->renderSection('script') ?>
 
 </body>

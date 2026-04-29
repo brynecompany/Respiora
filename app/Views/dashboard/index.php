@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -49,43 +50,6 @@
             pointer-events: none; z-index: 0;
         }
 
-        /* ── HEADER ── */
-        header {
-            position: sticky; top: 0; z-index: 100;
-            background: rgba(255,255,255,0.95);
-            backdrop-filter: blur(16px);
-            border-bottom: 1px solid var(--border);
-            padding: 14px 32px;
-            display: flex; align-items: center; justify-content: space-between; gap: 16px;
-        }
-        .header-left { display: flex; align-items: center; gap: 14px; }
-        .header-icon {
-            width: 40px; height: 40px;
-            background: linear-gradient(135deg, var(--teal), var(--blue));
-            border-radius: 10px;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 1.2rem; flex-shrink: 0;
-            box-shadow: 0 0 20px rgba(0,166,136,0.25);
-        }
-        .header-title { font-size: 1rem; font-weight: 600; color: var(--text); letter-spacing: -0.01em; }
-        .header-sub   { font-size: 0.72rem; color: var(--text2); margin-top: 1px; }
-        .header-right { display: flex; align-items: center; gap: 10px; }
-        .header-badge {
-            display: flex; align-items: center; gap: 6px;
-            background: rgba(0,166,136,0.08);
-            border: 1px solid rgba(0,166,136,0.25);
-            border-radius: 20px; padding: 5px 12px;
-            font-size: 0.72rem; color: var(--teal);
-            font-family: 'Space Mono', monospace; white-space: nowrap;
-        }
-        .pulse {
-            width: 6px; height: 6px; border-radius: 50%;
-            background: var(--teal); animation: pulse 2s infinite;
-        }
-        @keyframes pulse {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50%       { opacity: 0.5; transform: scale(0.8); }
-        }
 
         /* ── BUTTONS ── */
         .btn-unduh {
@@ -350,22 +314,7 @@
 </head>
 <body>
 
-<!-- ─── HEADER ─── -->
-<header>
-    <div class="header-left">
-        <div class="header-icon">🫁</div>
-        <div>
-            <div class="header-title">Dashboard Surveilans TBC</div>
-            <div class="header-sub">Sistem Informasi Tuberkulosis — Kota Jember</div>
-        </div>
-    </div>
-    <div class="header-right">
-        <div class="header-badge">
-            <div class="pulse"></div>
-            Live Data
-        </div>
-    </div>
-</header>
+
 
 <!-- ─── MODAL UNDUH ─── -->
 <div class="modal-overlay" id="modalOverlay" onclick="closeModalOutside(event)">
@@ -426,37 +375,6 @@
     <span id="toastMsg">Memproses laporan...</span>
     <div class="toast-progress" id="toastProgress" style="display:none"></div>
 </div>
-
-<!-- ─── DASHBOARD CONTENT ─── -->
-<div class="container" id="dashboardContent">
-
-    <div class="section-label">Ringkasan</div>
-    <div class="stats" id="sectionRingkasan">
-        <div class="stat-card teal">
-            <div class="stat-icon">🫁</div>
-            <div class="stat-label">Total Pasien</div>
-            <div class="stat-value">1,284</div>
-            <div class="stat-sub">Kasus terdaftar</div>
-        </div>
-        <div class="stat-card blue">
-            <div class="stat-icon">👨</div>
-            <div class="stat-label">Laki-laki</div>
-            <div class="stat-value">742</div>
-            <div class="stat-sub">Pasien pria</div>
-        </div>
-        <div class="stat-card pink">
-            <div class="stat-icon">👩</div>
-            <div class="stat-label">Perempuan</div>
-            <div class="stat-value">542</div>
-            <div class="stat-sub">Pasien wanita</div>
-        </div>
-        <div class="stat-card orange">
-            <div class="stat-icon">📍</div>
-            <div class="stat-label">Kelurahan</div>
-            <div class="stat-value">31</div>
-            <div class="stat-sub">Wilayah terdampak</div>
-        </div>
-    </div>
 
     <div class="section-label-bar">
         Tren Kasus
