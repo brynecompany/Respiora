@@ -346,14 +346,14 @@ body {
     <div class="menu-title">INFORMASI</div>
     <ul class="sidebar-menu">
         <li class="<?= ($segment == 'artikel') ? 'active' : '' ?>">
-            <a href="<?= base_url('/artikel') ?>">
+            <a href="<?= base_url('/admin/artikel') ?>">
                 <i class="fa-solid fa-book-open"></i>
                 <span>Artikel</span>
             </a>
         </li>
 
         <li class="<?= ($segment == 'berita') ? 'active' : '' ?>">
-            <a href="<?= base_url('/berita') ?>">
+            <a href="<?= base_url('/admin/berita') ?>">
                 <i class="fa-regular fa-newspaper"></i>
                 <span>Berita</span>
             </a>
