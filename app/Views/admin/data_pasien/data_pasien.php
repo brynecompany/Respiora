@@ -36,7 +36,7 @@
     </div>
 
     <!-- CARD -->
-    <div class="card shadow-sm" style="border-radius:12px;">
+    <div class="card shadow-sm" style="border-radius:10px;">
         <div class="card-body">
 
             <!-- SEARCH & BUTTON -->
@@ -52,7 +52,7 @@
         <input type="text"
                name="keyword"
                class="form-control"
-               placeholder="Cari berdasarkan NIK / Nama"
+               placeholder="Cari Pasien (NIK / Nama)"
                autocomplete="off"
                value="<?= $keyword ?? '' ?>"
                onkeypress="if(event.key === 'Enter') this.form.submit();">
