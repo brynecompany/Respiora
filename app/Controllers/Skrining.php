@@ -5,7 +5,7 @@ namespace App\Controllers;
 use App\Models\Skrining_model;
 use Dompdf\Dompdf;
 
-class Dashboard extends BaseController
+class Skrining extends BaseController
 {
     // STEP 1 (DATA DIRI)
     public function step1()
