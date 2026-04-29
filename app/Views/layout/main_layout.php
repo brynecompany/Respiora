@@ -328,17 +328,19 @@ body {
     <div class="menu-title">MANAJEMEN DATA</div>
     <ul class="sidebar-menu">
         <li class="<?= ($segment == 'pasien') ? 'active' : '' ?>">
-            <a href="<?= base_url('/pasien') ?>">
+            <a href="<?= base_url('/admin/data-pasien') ?>">
                 <i class="fa-solid fa-clipboard-user"></i>
                 <span>Data Pasien</span>
             </a>
         </li>
+
         <li class="<?= ($segment == 'user') ? 'active' : '' ?>">
             <a href="<?= base_url('/user') ?>">
                 <i class="fa-solid fa-users"></i>
                 <span>User</span>
             </a>
         </li>
+
     </ul>
 
     <div class="menu-title">INFORMASI</div>

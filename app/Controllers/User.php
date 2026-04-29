@@ -9,7 +9,23 @@ class User extends BaseController
     {
         $model = new UserModel();
 
-        $data['users'] = $model->findAll();
+        $keyword = $this->request->getGet('keyword');
+
+        if ($keyword) {
+            $model = $model
+                ->groupStart()
+                ->like('username', $keyword)
+                ->orLike('email', $keyword)
+                ->groupEnd();
+        }
+
+        $users = $model->paginate(10);
+
+        $data = [
+            'users'   => $users,
+            'pager'   => $model->pager,
+            'keyword' => $keyword
+        ];
 
         return view('user/index', $data);
     }
@@ -23,15 +39,15 @@ class User extends BaseController
     {
         $model = new UserModel();
 
-        $data = [
+        $model->insert([
             'username' => $this->request->getPost('username'),
             'email'    => $this->request->getPost('email'),
-            'password' => $this->request->getPost('password'),
+            'email'    => $this->request->getPost('password'),
             'role'     => $this->request->getPost('role'),
-        ];
-
-        $model->insert($data);
-
+        ]);
+        // Menyimpan data user
+        // Menyimpan pesan sukses untuk ditampilkan
+        session()->setFlashdata('success', 'Data user berhasil ditambahkan');
         return redirect()->to('/user')->with('success', 'User berhasil ditambahkan');
     }
 
@@ -51,9 +67,15 @@ class User extends BaseController
         $data = [
             'username' => $this->request->getPost('username'),
             'email'    => $this->request->getPost('email'),
-            'password' => $this->request->getPost('password'),
             'role'     => $this->request->getPost('role'),
         ];
+
+        if ($this->request->getPost('password')) {
+            $data['password'] = password_hash(
+                $this->request->getPost('password'),
+                PASSWORD_DEFAULT
+            );
+        }
 
         $model->update($id, $data);
 
@@ -63,7 +85,6 @@ class User extends BaseController
     public function delete($id)
     {
         $model = new UserModel();
-
         $model->delete($id);
 
         return redirect()->to('/user')->with('success', 'User berhasil dihapus');
