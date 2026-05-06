@@ -40,31 +40,45 @@
         <div class="card-body">
 
             <!-- SEARCH & BUTTON -->
-            <div class="d-flex justify-content-between mb-2">
-                <div class="input-group" style="max-width:600px;">
-    <form method="get" action="/admin/data-pasien">
-    <div class="input-group" style="max-width:500px;">
+            <div class="d-flex align-items-center justify-content-between mb-2">
 
-        <span class="input-group-text search-icon">
-            <i class="bi bi-search"></i>
-        </span>
+    <!-- SEARCH -->
+    <div class="input-group" style="max-width:600px;">
+        <form method="get" action="/admin/data-pasien">
+            <div class="input-group" style="max-width:500px;">
 
-        <input type="text"
-               name="keyword"
-               class="form-control"
-               placeholder="Cari Pasien (NIK / Nama)"
-               autocomplete="off"
-               value="<?= $keyword ?? '' ?>"
-               onkeypress="if(event.key === 'Enter') this.form.submit();">
+                <span class="input-group-text search-icon">
+                    <i class="bi bi-search"></i>
+                </span>
+
+                <input type="text"
+                       name="keyword"
+                       class="form-control"
+                       placeholder="Cari Pasien (NIK / Nama)"
+                       autocomplete="off"
+                       value="<?= $keyword ?? '' ?>"
+                       onkeypress="if(event.key === 'Enter') this.form.submit();">
+
+            </div>
+        </form>
+    </div>
+
+    <!-- BUTTON -->
+    <div class="d-flex align-items-center">
+
+        <a href="/admin/data-pasien/import"
+           class="btn btn-navy me-2">
+            <i class="bi bi-upload"></i> Import Data Pasien
+        </a>
+
+        <a href="/admin/data-pasien/create"
+           class="btn btn-navy">
+            <i class="bi bi-plus-circle"></i> Tambah Data
+        </a>
 
     </div>
-</form>
-</div>
 
-                <a href="/admin/data-pasien/create" class="btn btn-navy">
-                    <i class="bi bi-plus-circle"></i> Tambah Data
-                </a>
-            </div>
+</div>
 
             <!-- TABLE -->
             <div class="table-responsive">
@@ -256,11 +270,11 @@
 }
 
 .btn-batal {
-    background: #e0e0e0; /* 🔥 lebih solid */
-    color: #333; /* 🔥 lebih gelap */
-    border: 1px solid #c2c2c2; /* 🔥 biar ada garis tegas */
+    background: #e0e0e0; 
+    color: #333; 
+    border: 1px solid #bab5b5; 
     padding: 8px 22px;
-    border-radius: 8px;
+    border-radius: 8px !important;
      margin-right: 10px;
 }
 

@@ -26,6 +26,7 @@ class PasienModel extends Model
         'id_wilayah',
         'rt',
         'rw',
+        'jumlah_keluarga',
         'id_user'
     ];
 }

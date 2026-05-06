@@ -91,26 +91,24 @@ $pendapatan = [
         <div class="step">2</div>
         <small>Data Wilayah</small>
     </div>
-<div id="alertBox" style="
-    display:none;
-    position:fixed;
-    bottom:30px;
-    right:30px;
-    background:#ff4d4f;
-    color:white;
-    padding:12px 18px;
-    border-radius:8px;
-    box-shadow:0 4px 12px rgba(0,0,0,0.2);
-    font-size:14px;
-    z-index:9999;
-">
-    ⚠️ Semua data wajib diisi!
-</div>
+    <div class="line-step"></div>
+
+    <div class="text-center">
+        <div class="step">3</div>
+        <small>Data Tuberkulosis</small>
+    </div>
+
+    <div class="line-step"></div>
+
+    <div class="text-center">
+        <div class="step">4</div>
+        <small>Investigasi Kontak</small>
+    </div>
 </div>
             <div class="row"> <div class="col-md-6">
 
-                            <label>NIK</label>
-                <input name="NIK" id="nik" class="form-control"
+                            <label>Nomor Induk Kependudukan <span class="text-danger">*</span></label>
+                <input name="NIK" id="nik" class="form-control" required
                         value="<?= $pasien['NIK'] ?? '' ?>"
                         oninput="this.value=this.value.replace(/[^0-9]/g,'')"
                         inputmode="numeric"
@@ -127,8 +125,8 @@ $pendapatan = [
                        autocomplete="off"
                        <?= ($mode=='edit' || $mode=='create') ? '' : 'readonly' ?>>
 
-                <label class="mt-3">Nama Lengkap</label>
-                <input name="nama_pasien" class="form-control"
+                <label>Nama Lengkap <span class="text-danger">*</span></label>
+                <input name="nama_pasien" class="form-control" required
                        value="<?= $pasien['nama_pasien'] ?? '' ?>"
                        autocomplete="off"
                         <?= ($mode=='edit' || $mode=='create') ? '' : 'readonly' ?>>
@@ -141,7 +139,7 @@ $pendapatan = [
 
                 <!-- DATE -->
                 <label class="mt-3">Tanggal Lahir</label>
-                <input type="text"
+                <input type="date"
                        id="tanggal_lahir"
                        name="tanggal_lahir"
                        class="form-control"
@@ -169,16 +167,21 @@ $pendapatan = [
             <div class="col-md-6">
 
                 <!-- JENIS KELAMIN -->
-                <label>Jenis Kelamin</label>
+              <label>Jenis Kelamin <span class="text-danger">*</span></label>
 
 <?php if ($mode=='edit' || $mode=='create'): ?>
-<select name="jenis_kelamin" class="form-control">
+<select name="jenis_kelamin" class="form-control" required>
+
+    <!-- 🔥 OPTION KOSONG -->
+    <option value="">-- Pilih Jenis Kelamin --</option>
+
     <?php foreach($jk as $k=>$v): ?>
         <option value="<?= $k ?>"
             <?= (($pasien['jenis_kelamin'] ?? '') == $k) ? 'selected' : '' ?>>
             <?= $v ?>
         </option>
     <?php endforeach; ?>
+
 </select>
 <?php else: ?>
 <input class="form-control"
@@ -191,6 +194,7 @@ $pendapatan = [
 
 <?php if ($mode=='edit' || $mode=='create'): ?>
 <select name="pendidikan" class="form-control">
+            <option value="">-- Pilih Pendidikan --</option>
     <?php foreach($pendidikan as $k=>$v): ?>
         <option value="<?= $k ?>"
             <?= (($pasien['pendidikan'] ?? '') == $k) ? 'selected' : '' ?>>
@@ -209,6 +213,7 @@ $pendapatan = [
 
 <?php if ($mode=='edit' || $mode=='create'): ?>
 <select name="pekerjaan" class="form-control">
+            <option value="">-- Pilih Pekerjaan --</option>
     <?php foreach($pekerjaan as $k=>$v): ?>
         <option value="<?= $k ?>"
             <?= (($pasien['pekerjaan'] ?? '') == $k) ? 'selected' : '' ?>>
@@ -227,6 +232,7 @@ $pendapatan = [
 
 <?php if ($mode=='edit' || $mode=='create'): ?>
 <select name="status_pernikahan" class="form-control">
+            <option value="">-- Pilih Status Pernikahan --</option>
     <?php foreach($status as $k=>$v): ?>
         <option value="<?= $k ?>"
             <?= (($pasien['status_pernikahan'] ?? '') == $k) ? 'selected' : '' ?>>
@@ -241,16 +247,21 @@ $pendapatan = [
 <?php endif; ?>
 
                 <!-- USIA -->
-               <label class="mt-3">Kategori Usia</label>
+               <label>Kategori Usia <span class="text-danger">*</span></label>
 
 <?php if ($mode=='edit' || $mode=='create'): ?>
-<select name="kelompok_usia" class="form-control">
+<select name="kelompok_usia" class="form-control" required>
+
+    <!-- 🔥 OPTION KOSONG -->
+    <option value="">-- Pilih Kategori Usia --</option>
+
     <?php foreach($usia as $k=>$v): ?>
         <option value="<?= $k ?>"
             <?= (($pasien['kelompok_usia'] ?? '') == $k) ? 'selected' : '' ?>>
             <?= $v ?>
         </option>
     <?php endforeach; ?>
+
 </select>
 <?php else: ?>
 <input class="form-control"
@@ -263,6 +274,7 @@ $pendapatan = [
 
 <?php if ($mode=='edit' || $mode=='create'): ?>
 <select name="pendapatan" class="form-control">
+            <option value="">-- Pilih Pendapatan --</option>
     <?php foreach($pendapatan as $k=>$v): ?>
         <option value="<?= $k ?>"
             <?= (($pasien['pendapatan'] ?? '') == $k) ? 'selected' : '' ?>>
@@ -314,14 +326,10 @@ $pendapatan = [
 <!-- CALENDAR -->
 <?php if ($mode === 'edit' || $mode === 'create'): ?>
 <script>
-flatpickr("#tanggal_lahir", {
-    dateFormat: "Y-m-d",
-    defaultDate: "<?= $pasien['tanggal_lahir'] ?? '' ?>",
-});
 
 document.getElementById('formDiri').addEventListener('submit', function(e){
 
-    let inputs = this.querySelectorAll('input, select');
+    let inputs = this.querySelectorAll('[required]');
     let nik = document.getElementById('nik');
     let nikError = document.getElementById('nikError');
 

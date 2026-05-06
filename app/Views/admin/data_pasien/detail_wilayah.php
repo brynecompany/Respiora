@@ -26,40 +26,38 @@
     <div class="card p-4">
 
 <?php if($mode == 'create'): ?>
-<form action="/admin/data-pasien/store-final" method="post">
+<form action="/admin/data-pasien/storeWilayahTemp" method="post">
 <?php else: ?>
 <form action="/admin/data-pasien/update/<?= $pasien['id_pasien'] ?>/wilayah" method="post">
 <?php endif; ?>
 
         <!-- STEP -->
         <div class="d-flex justify-content-center align-items-center mb-4">
-            <div class="text-center">
-                <div class="step">1</div>
-                <small>Data Diri</small>
-            </div>
+            <div class="text-center step-item">
+        <div class="step">1</div>
+        <small>Data Diri</small>
+    </div>
 
-            <div class="line-step"></div>
+    <div class="line-step"></div>
 
-            <div class="text-center">
-                <div class="step active">2</div>
-                <small>Data Wilayah</small>
-            </div>
-        </div>
-        <div id="alertBoxWilayah" style="
-    display:none;
-    position:fixed;
-    bottom:30px;
-    right:30px;
-    background:#ff4d4f;
-    color:white;
-    padding:12px 18px;
-    border-radius:8px;
-    box-shadow:0 4px 12px rgba(0,0,0,0.2);
-    font-size:14px;
-    z-index:9999;
-">
-    ⚠️ Semua data wilayah wajib diisi!
-</div>
+    <div class="text-center step-item">
+        <div class="step active">2</div>
+        <small>Data Wilayah</small>
+    </div>
+    <div class="line-step"></div>
+
+    <div class="text-center">
+        <div class="step">3</div>
+        <small>Data Tuberkulosis</small>
+    </div>
+
+    <div class="line-step"></div>
+
+    <div class="text-center">
+        <div class="step">4</div>
+        <small>Investigasi Kontak</small>
+    </div>
+    </div>
         <div class="row">
 
             <!-- LEFT -->
@@ -67,17 +65,29 @@
 
                 <?php if ($mode === 'edit' || $mode === 'create'): ?>
 
-                    <label>Provinsi</label>
-                    <select id="provinsi" class="form-control mb-3"></select>
+                    <label>Provinsi<span class="text-danger">*</span></label>
+                    <select id="provinsi" class="form-control mb-3" required>
+                        <option value="">-- Pilih Provinsi --</option>
+                    </select>
+                    
 
-                    <label>Kabupaten</label>
-                    <select id="kabupaten" class="form-control mb-3"></select>
+                    <label>Kabupaten<span class="text-danger">*</span></label>
+                    <select id="kabupaten" class="form-control mb-3" required>
+                        <option value="">-- Pilih Kabupaten --</option>
+                    </select>
+                    
 
-                    <label>Kecamatan</label>
-                    <select id="kecamatan" class="form-control mb-3"></select>
+                    <label>Kecamatan<span class="text-danger">*</span></label>
+                    <select id="kecamatan" class="form-control mb-3"required>
+                        <option value="">-- Pilih Kecamatan --</option>
+                    </select>
+                    
 
-                    <label>Kelurahan</label>
-                    <select name="id_wilayah" id="kelurahan" class="form-control mb-3"></select>
+                    <label>Kelurahan<span class="text-danger">*</span></label>
+                    <select name="id_wilayah" id="kelurahan" class="form-control mb-3"required>
+                        <option value="">-- Pilih Kelurahan --</option>
+                    </select>
+                    
 
                     <label>Kode POS</label>
                     <input id="kode_pos" class="form-control" readonly>
@@ -108,13 +118,13 @@
             <div class="col-md-6">
 
                 <label>RT</label>
-                <input name="rt" class="form-control"
+                <input name="rt" class="form-control input-rt-rw"
                        value="<?= $pasien['rt'] ?? '' ?>"
                        oninput="this.value=this.value.replace(/[^0-9]/g,'')"
                        <?= ($mode === 'edit' || $mode === 'create') ? '' : 'readonly' ?>>
 
                 <label class="mt-3">RW</label>
-                <input name="rw" class="form-control"
+                <input name="rw" class="form-control input-rt-rw"
                        value="<?= $pasien['rw'] ?? '' ?>"
                        oninput="this.value=this.value.replace(/[^0-9]/g,'')"
                        <?= ($mode === 'edit' || $mode === 'create') ? '' : 'readonly' ?>>
@@ -133,8 +143,8 @@
        Kembali
     </a>
 
-    <button type="submit" class="btn btn-success">
-        Simpan
+    <button type="submit" class="btn btn-primary">
+        Lanjut
     </button>
 
 <?php elseif ($mode === 'create'): ?>
@@ -150,9 +160,14 @@
 
 <?php else: ?>
 
-    <a href="/admin/data-pasien"
+    <a href="/admin/data-pasien/<?= $pasien['id_pasien'] ?>"
        class="btn btn-secondary me-2">
        Kembali
+    </a>
+
+    <a href="/admin/data-pasien/<?= $pasien['id_pasien'] ?>/tbc"
+       class="btn btn-primary">
+       Lanjut
     </a>
 
 <?php endif; ?>
@@ -184,6 +199,13 @@
     height: 2px;
     background: #ccc;
     margin: 0 10px;
+}
+.input-rt-rw {
+    width: 50px;        /* 🔥 kecil */
+    height: 38px;
+    text-align: center;
+    border-radius: 10px; /* 🔥 rounded seperti UI */
+    padding: 0;
 }
 </style>
 
@@ -225,7 +247,7 @@ fetch('<?= base_url("api/wilayah/provinsi") ?>')
     if(selectedProv){
     prov.value = selectedProv;
 }
-    prov.innerHTML = '<option value="">Pilih Provinsi</option>';
+    ;
 
     data.forEach(d => {
         let nama = provMap[d.provinsi] || d.provinsi;
@@ -242,7 +264,7 @@ document.getElementById('provinsi').addEventListener('change', function(){
     .then(res => res.json())
     .then(data => {
         let kab = document.getElementById('kabupaten');
-        kab.innerHTML = '<option value="">Pilih Kabupaten</option>';
+        
 
         data.forEach(d => {
             let nama = kabMap[d.kabupaten] || d.kabupaten;
@@ -259,7 +281,7 @@ document.getElementById('kabupaten').addEventListener('change', function(){
     .then(res => res.json())
     .then(data => {
         let kec = document.getElementById('kecamatan');
-        kec.innerHTML = '<option value="">Pilih Kecamatan</option>';
+
 
         data.forEach(d => {
             let nama = kecMap[d.kecamatan] || d.kecamatan;
@@ -276,7 +298,7 @@ document.getElementById('kecamatan').addEventListener('change', function(){
     .then(res => res.json())
     .then(data => {
         let kel = document.getElementById('kelurahan');
-        kel.innerHTML = '<option value="">Pilih Kelurahan</option>';
+        
 
         data.forEach(d => {
             let nama = kelMap[d.id_wilayah] || d.kelurahan;
@@ -314,22 +336,15 @@ document.querySelector('form').addEventListener('submit', function(e){
         valid = false;
     }
 
-    if(!rt || rt.value.trim() === ''){
+    // 🔥 CEK RT/RW (RT dan RW boleh kosong, jika diisi harus angka)
+    if(rt && rt.value.trim() !== '' && !/^[0-9]+$/.test(rt.value)){
         valid = false;
     }
 
-    if(!rw || rw.value.trim() === ''){
+    if(rw && rw.value.trim() !== '' && !/^[0-9]+$/.test(rw.value)){
         valid = false;
     }
 
-    // 🔥 CEK ANGKA
-    if(rt && !/^[0-9]+$/.test(rt.value)){
-        valid = false;
-    }
-
-    if(rw && !/^[0-9]+$/.test(rw.value)){
-        valid = false;
-    }
 
     // ❌ STOP SUBMIT
     if(!valid){
