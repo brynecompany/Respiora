@@ -34,6 +34,7 @@ body {
     top: 0;
     left: 0;
     transition: 0.3s;
+    overflow-y: auto;
 }
 
 /* CONTENT */
@@ -53,7 +54,7 @@ body {
 
 /* logo kecil (icon) */
 .logo-icon {
-    width: 40px;
+    width: 50px;
 }
 
 /* logo tulisan */
@@ -84,16 +85,111 @@ body {
     padding: 0;
 }
 
+/* DROPDOWN */
+.has-submenu > a {
+    justify-content: space-between;
+    cursor: pointer;
+}
+
+.submenu {
+    display: none;
+    list-style: none;
+    padding-left: 35px;
+}
+
+/* DOT */
+.dot {
+    width: 6px;
+    height: 6px;
+    background: #6c757d;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.sidebar.hide .dot {
+    margin: 0 auto;
+}
+
+.submenu li a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+    padding: 6px 10px;
+    margin: 2px 0;
+    background: transparent !important;
+    color: #495057 !important;
+}
+
+.submenu li a:hover {
+    background: #E4EFFF !important;
+    color: #102C57 !important;
+}
+
+/* aktif dropdown */
+.has-submenu.active .submenu {
+    display: block;
+    background: transparent !important;
+    color: #495057 !important;
+    transition: transform 0.3s ease;
+}
+
+.submenu li a.active {
+    background-color: #081F5C !important;  /* Warna biru tua */
+    color: white !important;  /* Warna teks putih saat aktif */
+}
+
+/* SEMBUNYIKAN TEKS SUBMENU SAAT COLLAPSE */
+.submenu {
+    padding-left: 25px;  
+}
+
+.sidebar.hide .submenu li a {
+    display: block;
+    width: 100%;
+    height: 20px;
+    text-align: center;
+    line-height: 35px;
+    font-size: 0;
+    position: relative;
+    z-index: 2;
+    justify-content: center;
+    margin-left: 0px !important;
+}
+
+/* HIDE TEXT SAAT COLLAPSE */
+.sidebar.hide .submenu li a .text {
+    display: none;
+}
+
+/* BIAR TITIK TETAP MUNCUL DAN KE TENGAH */
+.sidebar.hide .submenu li {
+    position: relative;
+    padding-left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.sidebar.hide .submenu li::before {
+    position: static;
+    display: block;
+    content: "•";
+    position: static;
+    font-size: 30px;
+}
+
 .sidebar-menu li a {
     display: flex;
     align-items: center;
     gap: 10px;
-    padding: 10px 20px;
+    padding: 8px 20px;
     margin: 2px 15px;
     border-radius: 8px;
     color: #495057;
     text-decoration: none;
-    transition: 0.2s;
+    transition: 0.3s;
     margin-top: 5px;
 }
 
@@ -102,9 +198,19 @@ body {
     color: var(--respi-dark-blue);
 }
 
-.sidebar-menu li.active a {
+/* hanya menu biasa yg aktif jadi biru */
+.sidebar-menu > li.active:not(.has-submenu) > a {
     background-color: var(--respi-dark-blue);
     color: white;
+}
+
+.sidebar.hide .sidebar-menu li a {
+    justify-content: center;
+    padding: 15px 0;
+}
+
+.sidebar.hide .sidebar-menu li a i {
+    font-size: 18px;
 }
 
 /* MAIN */
@@ -154,12 +260,12 @@ body {
 
 /* COLLAPSE */
 .sidebar.hide {
-    width: 70px;
+    width: 80px;
 }
 
 .main.full {
-    margin-left: 70px;
-    width: calc(100% - 70px);
+    margin-left: 80px;
+    width: calc(100% - 80px);
 }
 
 .sidebar.hide .menu-title,
@@ -169,7 +275,7 @@ body {
 
 .sidebar.hide a {
     justify-content: center;
-    margin-top: 20px;
+    margin-top: 10px;
 }
 
 /* FIX MAP & KOMPAS */
@@ -317,27 +423,71 @@ body {
             </a>
         </li>
 
-        <li class="<?= ($segment == 'kasus') ? 'active' : '' ?>">
+        <!-- <li class="<?= ($segment == 'kasus') ? 'active' : '' ?>">
             <a href="<?= base_url('/kasus') ?>">
                 <i class="fa-solid fa-chart-line"></i>
                 <span>Kasus</span>
             </a>
+        </li> -->
+        <li class="has-submenu" id="submenu-grafik">
+            <a href="javascript:void(0)">
+                <div>
+                    <i class="fa-solid fa-chart-line"></i>
+                    <span>Grafik</span>
+                </div>
+                <i class="fa-solid fa-chevron-down"></i>
+            </a>
+
+            <ul class="submenu">
+                <li>
+                    <a href="<?= base_url('/grafik/kasus') ?>">
+                        <span class="dot"></span>
+                        <span class="text">Kasus</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="<?= base_url('/skrining') ?>">
+                        <span class="dot"></span>
+                        <span class="text">Skrining</span>
+                    </a>
+                </li>
+            </ul>
         </li>
+
+        
     </ul>
 
     <div class="menu-title">MANAJEMEN DATA</div>
     <ul class="sidebar-menu">
-        <li class="<?= ($segment == 'pasien') ? 'active' : '' ?>">
-            <a href="<?= base_url('/admin/data-pasien') ?>">
-                <i class="fa-solid fa-clipboard-user"></i>
-                <span>Data Pasien</span>
+        <li class="has-submenu <?= in_array($segment, ['pasien_so','pasien_ro']) ? 'active' : '' ?>">
+            <a href="javascript:void(0)">
+                <div>
+                    <i class="fa-solid fa-file-lines"></i>
+                    <span>Data Pasien</span>
+                </div>
+                <i class="fa-solid fa-chevron-down"></i>
             </a>
+
+            <ul class="submenu">
+            <li>
+                <a href="<?= base_url('/pasien_so') ?>">
+                    <span class="dot"></span>
+                    <span class="text">Pasien SO</span>
+                </a>
+            </li>
+            <li>
+                <a href="<?= base_url('/pasien_ro') ?>">
+                    <span class="dot"></span>
+                    <span class="text">Pasien RO</span>
+                </a>
+            </li>
+        </ul>
         </li>
 
         <li class="<?= ($segment == 'user') ? 'active' : '' ?>">
             <a href="<?= base_url('/user') ?>">
-                <i class="fa-solid fa-users"></i>
-                <span>User</span>
+                <i class="fa-solid fa-file-lines"></i>
+                <span> Manajemen User</span>
             </a>
         </li>
 
@@ -384,7 +534,7 @@ body {
                 <strong><?= session()->get('username'); ?></strong><br>
                 <small><?= session()->get('role'); ?></small>
             </div>
-            <img src="https://i.pravatar.cc/40">
+            <img src="<?= base_url('assets/images/profil.png') ?>">
         </div>
     </div>
 
@@ -402,7 +552,7 @@ body {
         <h5 class="popup-title">Profil Pengguna</h5>
 
         <div class="profile-header">
-            <img src="https://i.pravatar.cc/100" class="profile-avatar">
+            <img src="<?= base_url('assets/images/profil.png') ?>" class="profile-avatar">
             <div>
                 <h6><?= session()->get('username'); ?></h6>
                 <small><?= session()->get('role'); ?></small>
@@ -427,9 +577,23 @@ const toggle = document.querySelector('.menu-toggle');
 const sidebar = document.querySelector('.sidebar');
 const main = document.querySelector('.main');
 
+// LOAD STATE SAAT PAGE DIBUKA
+if (localStorage.getItem('sidebar') === 'hide') {
+    sidebar.classList.add('hide');
+    main.classList.add('full');
+}
+
+// SAAT DIKLIK
 toggle.addEventListener('click', () => {
     sidebar.classList.toggle('hide');
     main.classList.toggle('full');
+
+// SIMPAN STATE
+if (sidebar.classList.contains('hide')) {
+    localStorage.setItem('sidebar', 'hide');
+} else {
+    localStorage.setItem('sidebar', 'show');
+}
 });
 
 /* POPUP */
@@ -445,6 +609,45 @@ modal.addEventListener('click', (e) => {
         modal.style.display = 'none';
     }
 });
+
+// DROPDOWN SIDEBAR
+// DROPDOWN SIDEBAR
+document.querySelectorAll('.has-submenu > a').forEach(item => {
+    item.addEventListener('click', function(e) {
+        const parent = this.parentElement;
+        const icon = this.querySelector('i:last-child'); // Ikon panah
+
+        // Toggle aktifitas dropdown hanya ketika menu utama diklik
+        if (!parent.classList.contains('active')) {
+            parent.classList.add('active');
+            // Putar ikon panah ke bawah
+            icon.style.transform = 'rotate(180deg)';
+        } else {
+            parent.classList.remove('active');
+            // Putar ikon panah kembali ke atas
+            icon.style.transform = 'rotate(0deg)';
+        }
+
+        // Cegah agar event tidak propagasi dan menutup dropdown lainnya
+        e.stopPropagation();
+    });
+});
+
+// Highlight submenu yang diklik
+document.querySelectorAll('.submenu li a').forEach(subMenuItem => {
+    subMenuItem.addEventListener('click', function(e) {
+        // Hapus 'active' class dari semua submenu
+        document.querySelectorAll('.submenu li a').forEach(item => item.classList.remove('active'));
+
+        // Tambahkan 'active' class ke submenu yang diklik
+        this.classList.add('active');
+
+        // Cegah klik pada submenu agar tidak menutup dropdown
+        e.stopPropagation();
+    });
+});
+
+
 </script>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>

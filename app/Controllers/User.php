@@ -71,10 +71,7 @@ class User extends BaseController
         ];
 
         if ($this->request->getPost('password')) {
-            $data['password'] = password_hash(
-                $this->request->getPost('password'),
-                PASSWORD_DEFAULT
-            );
+            $data['password'] = $this->request->getPost('password');
         }
 
         $model->update($id, $data);
@@ -88,5 +85,13 @@ class User extends BaseController
         $model->delete($id);
 
         return redirect()->to('/user')->with('success', 'User berhasil dihapus');
+    }
+
+    public function view($id)
+    {
+    $userModel = new \App\Models\UserModel();
+    $data['user'] = $userModel->find($id);
+
+    return view('user/view', $data);
     }
 }

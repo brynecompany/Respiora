@@ -5,10 +5,11 @@ use CodeIgniter\Router\RouteCollection;
 /**
  * @var RouteCollection $routes
  */
+
 /* $routes->get('/', 'Role::index');
 $routes->get('login/(:segment)', 'Auth::login/$1');
 $routes->get('myhome', 'Home::index'); */
-$routes->get('/', 'Role::index');
+$routes->get('/role', 'Role::index');
 $routes->get('login/(:segment)', 'Auth::login/$1');
 $routes->post('auth/proses-login', 'Auth::prosesLogin');
 /*$routes->get('dashboard', 'Home::index');*/
@@ -32,17 +33,45 @@ $routes->post('reset-password/update', 'Auth::updatePassword');
 // DASHBOARD (SETELAH LOGIN)
 // =====================
 $routes->get('dashboard', 'Dashboard::index');
+$routes->get('dashboard/getByYear/(:num)', 'Dashboard::getByYear/$1');
 
 
 // =====================
 // FITUR
 // =====================
 $routes->get('/peta_view', 'Peta::index');
-$routes->get('kasus', 'Kasus::index');
+// $routes->get('kasus', 'Kasus::index');
 $routes->get('user', 'User::index');
 $routes->get('user/create', 'User::create'); // untuk tampilkan form input user
 $routes->post('user/store', 'User::store');  // untuk simpan data user
 $routes->get('user/edit/(:num)', 'User::edit/$1');
+$routes->post('user/update/(:num)', 'User::update/$1');
+$routes->get('user/view/(:num)', 'User::view/$1');
+$routes->post('user/delete/(:num)', 'User::delete/$1');
+
+
+// =====================
+// GRAFIK
+// =====================
+
+// $routes->get('/', 'Home::index');
+
+
+// =====================
+// KASUS (DASHBOARD)
+// =====================
+$routes->setDefaultNamespace('App\Controllers');
+$routes->setDefaultController('Home');
+$routes->setDefaultMethod('index');
+$routes->setTranslateURIDashes(false);
+$routes->set404Override();
+// GRAFIK KASUS
+// $routes->get('/', 'Home::index');
+//$routes->get('grafik/kasus', 'Grafik\Kasus::index');
+//$routes->get('kasus/getBulan/(:num)', 'Grafik\Kasus::getBulan/$1');  
+$routes->get('grafik/kasus', 'Kasus::index');
+$routes->get('kasus/getBulan/(:num)', 'Kasus::getBulan/$1');
+
 
 // =====================
 // MANAJEMEN DATA
@@ -64,7 +93,7 @@ $routes->get('profil', 'Profil::index');
 // =====================
 /*$routes->get('sidebar_layl', 'Home::sidebarLayl');*/
 
-$routes->get('/', 'Home::index');
+//$routes->get('/', 'Home::index');
 
 $routes->get('admin/data-pasien', 'Admin\Pasien::index');
 $routes->get('admin/data-pasien/(:num)', 'Admin\Pasien::detailDiri/$1');
@@ -106,3 +135,12 @@ $routes->get('admin/berita/delete/(:num)', 'Admin\Berita::delete/$1');
 $routes->get('admin/berita/edit/(:num)', 'Admin\Berita::edit/$1');
 $routes->post('admin/berita/update/(:num)', 'Admin\Berita::update/$1');
 $routes->get('admin/berita/toggle/(:num)', 'Admin\Berita::toggle/$1');
+
+$routes->get('/skrining', 'Skrining::step1');
+$routes->post('/skrining/step2', 'Skrining::step2');
+$routes->post('/Skrining/proses', 'Skrining::proses');
+$routes->get('/', 'Skrining::step1');
+$routes->get('/skrining_data', 'Skrining::step1');
+$routes->get('/getKodePos', 'Skrining::getKodePos');
+$routes->get('Skrining/cetak/(:num)', 'Skrining::cetak/$1');
+

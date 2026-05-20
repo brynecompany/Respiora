@@ -7,16 +7,14 @@
 <div class="container-fluid">
 
     <!-- HEADER -->
-    <div class="card mb-4" style="background: linear-gradient(90deg, #081F5C, #5E9ADF); border-radius:12px;">
-        <div class="card-body text-white d-flex align-items-center">
-            <div class="me-3 d-flex align-items-center justify-content-center" style="width:60px;height:60px;border-radius:18px;background: rgba(255,255,255,0.12);backdrop-filter: blur(6px);border:1px solid rgba(255,255,255,0.2);">
-                <img src="/assets/img/icon_breadcrumb.svg" width="30">
-            </div>
-            <div>
-                <h4 class="mb-1">Manajemen User</h4>
-                <small>Kelola data pengguna sistem</small>
-            </div>
-        </div>
+    <div class="header-user">
+    <div class="header-icon">
+        <img src="/assets/img/icon_breadcrumb.svg" alt="Icon User">
+    </div>
+    <div>
+        <h5>Manajemen User</h5>
+        <small>Kelola data pengguna sistem</small>
+    </div>
     </div>
 
     <!-- ALERT SUKSES -->
@@ -69,7 +67,7 @@
                                     <td><?= esc($u['email']) ?></td>
                                     <td><?= esc($u['username']) ?></td>
                                     <td class="text-center">
-                                        <a href="/user/<?= $u['id_user'] ?>" class="btn btn-sm btn-primary">
+                                        <a href="/user/view/<?= $u['id_user'] ?>" class="btn btn-sm btn-primary">
                                             <i class="bi bi-eye-fill"></i>
                                         </a>
                                         <a href="/user/edit/<?= $u['id_user'] ?>" class="btn btn-sm btn-warning">
@@ -106,6 +104,7 @@
         <div class="btn-group">
             <button id="btnBatal" class="btn btn-batal">Batal</button>
             <form id="formHapus" method="post">
+                <?= csrf_field() ?> <!-- ✅ TAMBAHAN -->
                 <button type="submit" class="btn btn-hapus">
                     Ya, Hapus!
                 </button>
@@ -127,6 +126,24 @@
 
 <!-- STYLE -->
 <style>
+/* header */
+.header-user {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    background: linear-gradient(90deg, #081F5C, #5E9ADF);
+    color: white;
+    padding: 15px 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.header-icon img {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+}
+
 /* Container Pagination */
 .pagination {
     display: flex;
@@ -257,13 +274,11 @@
 }
 </style>
 
-<!-- JAVASCRIPT -->
 <script>
 document.addEventListener("DOMContentLoaded", function() {
 
     const modal = document.getElementById("modalHapus");
     const form = document.getElementById("formHapus");
-    let deleteUrl = "";
 
     // Ketika tombol hapus ditekan
     document.querySelectorAll(".btn-delete").forEach(button => {
@@ -272,27 +287,27 @@ document.addEventListener("DOMContentLoaded", function() {
 
             // Ambil ID user yang akan dihapus
             const userId = this.getAttribute("data-id");
-            deleteUrl = `/user/delete/${userId}`;
+            const deleteUrl = `/user/delete/${userId}`;
 
-            // Tampilkan modal konfirmasi
+            // ✅ FIX: action dipindah ke sini
+            form.action = deleteUrl;
+
+            // Tampilkan modal
             modal.style.display = "flex";
         });
     });
 
-    // Ketika tombol batal ditekan
+    // Tombol batal
     document.getElementById("btnBatal").addEventListener("click", function() {
         modal.style.display = "none";
     });
 
-    // Jika modal diklik di luar box, tutup modal
+    // Klik luar modal
     modal.addEventListener("click", function(e) {
         if (e.target === modal) {
             modal.style.display = "none";
         }
     });
-
-    // Atur form untuk penghapusan
-    form.action = deleteUrl;
 
 });
 </script>

@@ -55,12 +55,21 @@
         position: relative;
         border-radius: 50px;
         border: 2px solid #ffffff;
-        transition: transform 0.3s ease;
+        transition: all 0.3s ease;
         overflow: visible;
         background: #081F5C;
         box-shadow: 0 5px 20px rgba(0,0,0,0.4);
         z-index: 2;
         padding-bottom: 20px;
+    }
+
+    /* FIX HOVER (INI SAJA YANG DIUBAH) 334EAC  */
+    .card:hover {
+        transform: translateY(-10px);
+        box-shadow: 
+            0 10px 30px rgb(255, 255, 255),
+            0 0 0 1px #F7FAFF,
+            0 0 0 10px rgba(192, 212, 255, 0.3);
     }
 
     .card-title {
@@ -127,7 +136,13 @@
         text-decoration: none;
         font-weight: bold;
         border: 1px solid white;
+        transition: 0.3s;
     }
+
+    .card:hover .btn {
+        transform: scale(1.05);
+    }
+
     </style>
 
 </head>
@@ -146,51 +161,39 @@
 
     <div class="card-wrapper">
         
-        <!-- Admin -->
         <div class="card">
             <div class="card-title">Admin</div>
-            
             <div class="profile-box">
                 <img src="<?= base_url('assets/images/admin.png') ?>" class="avatar">
             </div>
-
             <div class="card-body">
                 Admin bertanggung jawab dalam pengelolaan data kasus TBC,
                 pembaruan status pasien, serta pemantauan wilayah penyebaran penyakit melalui RESPIORA.
             </div>
-
             <a href="<?= base_url('login/admin') ?>" class="btn">Pilih</a>
         </div>
 
-        <!-- Kepala Puskesmas -->
         <div class="card">
             <div class="card-title">Kepala Puskesmas</div>
-
             <div class="profile-box">
                 <img src="<?= base_url('assets/images/kapus.png') ?>" class="avatar">
             </div>
-
             <div class="card-body">
                 Kepala Puskesmas memiliki akses untuk memantau indikator program TBC,
                 melihat tren kasus, evaluasi wilayah risiko, serta laporan kinerja pengendalian TBC.
             </div>
-
             <a href="<?= base_url('login/kepalapuskesmas') ?>" class="btn">Pilih</a>
         </div>
 
-        <!-- Kepala Dinkes -->
         <div class="card">
             <div class="card-title">Kepala Dinkes</div>
-
             <div class="profile-box">
                 <img src="<?= base_url('assets/images/dinkes.png') ?>" class="avatar">
             </div>
-
             <div class="card-body">
                 Pemimpin instansi teknis pemerintahan tingkat provinsi atau kabupaten/kota 
                 yang bertanggung jawab melaksanakan urusan pemerintahan bidang kesehatan.
             </div>
-
             <a href="<?= base_url('login/kepaladinkes') ?>" class="btn">Pilih</a>
         </div>
 

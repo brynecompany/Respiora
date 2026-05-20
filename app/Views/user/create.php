@@ -20,7 +20,7 @@
 
 /* FORM CONTAINER */
 .form-container {
-    background: #f8fafc;
+    background: #FFFFFF;
     padding: 30px;
     border-radius: 10px;
     margin-top: 20px;
@@ -43,6 +43,13 @@
     margin-bottom: 5px;
     font-size: 14px;
     color: #555;
+}
+
+/* TAMBAHAN (BINTANG MERAH) */
+.required::after {
+    content: " *";
+    color: red;
+    font-weight: bold;
 }
 
 .form-group input,
@@ -112,7 +119,7 @@
 
             <!-- ROLE -->
             <div class="form-group">
-                <label>Role Akses</label>
+                <label class="required">Role Akses</label>
                 <select name="role" required>
                     <option value="">-- Pilih Pengguna --</option>
                     <option value="admin">Admin</option>
@@ -123,20 +130,20 @@
 
             <!-- USERNAME -->
             <div class="form-group">
-                <label>Username</label>
+                <label class="required">Username</label>
                 <input type="text" name="username" placeholder="Masukan Username" required>
             </div>
 
             <!-- EMAIL -->
             <div class="form-group">
-                <label>Email</label>
+                <label class="required">Email</label>
                 <input type="email" name="email" placeholder="Masukan Email" required>
             </div>
 
             <!-- PASSWORD -->
             <div class="form-group">
-                <label>Password</label>
-                <input type="password" name="password" placeholder="Masukan Password" required>
+                <label class="required">Password</label>
+                <input type="text" name="password" placeholder="Masukan Password" required>
             </div>
 
         </div>

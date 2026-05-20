@@ -57,7 +57,6 @@
     color: white;
     border-radius: 8px;
     border: none;
-    transition: 0.2s;
 }
 
 /* HOVER */
@@ -72,11 +71,39 @@
     color: white !important;
 }
 
-/* FOCUS (BIAR GA PUTIH) */
+/* FOCUS */
 .btn-main:focus {
     background: #081F5C !important;
     color: white !important;
     box-shadow: none !important;
+    outline: none !important;
+}
+
+/* SUPER OVERRIDE: MATIKAN SEMUA TRANSISI & ANIMASI */
+*,
+*::before,
+*::after {
+    transition: none !important;
+    animation: none !important;
+}
+
+/* HAPUS EFEK BOOTSTRAP */
+.btn,
+.btn:focus,
+.btn:active {
+    box-shadow: none !important;
+    outline: none !important;
+}
+
+/* INPUT FOCUS */
+.form-control:focus {
+    box-shadow: none !important;
+    outline: none !important;
+}
+
+/* HAPUS TAP EFFECT */
+* {
+    -webkit-tap-highlight-color: transparent !important;
 }
 
 /* placeholder titik hitam */
@@ -105,7 +132,7 @@
 <div class="profile-card">
     <div class="profile-content">
 
-        <img src="https://i.pravatar.cc/100" class="avatar">
+        <img src="<?= base_url('assets/images/profil.png') ?>" class="avatar">
 
         <h6><?= session()->get('username'); ?></h6>
 

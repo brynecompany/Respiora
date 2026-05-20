@@ -134,7 +134,7 @@
             <!-- PASSWORD (Opsional) -->
             <div class="form-group">
                 <label>Password</label>
-                <input type="password" name="password" placeholder="Masukan Password (kosongkan jika tidak ingin mengubah)">
+                <input type="text" name="password" value="<?= esc($user['password']) ?>" placeholder="Masukan Password" required>
             </div>
 
         </div>
